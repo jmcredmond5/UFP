@@ -1,0 +1,1239 @@
+﻿@model UFPCore.Models.AdminPageViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Admin";
+}
+
+<h2>Admin Page</h2>
+
+@Html.ActionLink("Refresh users in league to include all registered users", "InsertUsersToPointsTable", "Admin")
+
+<hr />
+
+<form action="/Admin/RemoveUserFromPointsTable" method="post">
+    <div class="form-group">
+        <label name="userName">
+            User (UFPId) to remove from league
+        </label>
+        <input type="text" class="form-control" name="userName" />
+    </div>
+    <button class="btn btn-primary">Remove user from league </button>
+</form>
+
+<hr />
+
+@Html.ActionLink("Update all scores (warning: can take some time, be patient)", "UpdateUserScores", "Admin")
+
+<hr />
+
+<form action="/Admin/AddOneToUpdateNumbers" method="post">
+    <p>
+        Select the number where you want to insert the new update. E.g. update 9 is completed and you want to move anything in update 10 to update 11, update 11 to update 12 etc. so that the unplanned result can be update 10, then select 10 here.
+    </p>
+    <div class="form-group">
+        @Html.DropDownListFor(m => m.updateBreakPoint, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "update number", new { @class = "form-control margine-left"})
+    </div>
+    <button class="btn btn-primary" type="submit"> Shift updates </button>
+</form>
+
+<hr />
+<form action="/Admin/ChangeUpdates" method="post">
+    <button class="btn btn-primary" type="submit">Submit update number changes</button>
+    <p>
+        What is the current update number?
+    </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.CurrentUpdate, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "current update", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.CurrentUpdate, "", new { @class = "text-danger" })
+    </div>
+    <p>
+        Which questions are in each update?
+    </p>
+    <p>Championship Final Table</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.ChFinalTable, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.ChFinalTable, "", new { @class = "text-danger" })
+    </div>
+    <p>Championship Playoffs</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.ChPlayoffs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.ChPlayoffs, "", new { @class = "text-danger" })
+    </div>
+    <p>Christmas update</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Christmas, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Christmas, "", new { @class = "text-danger" })
+    </div>
+    <p>Champions League results after final</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.CLFinalResults, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.CLFinalResults, "", new { @class = "text-danger" })
+    </div>
+    <p>Champions League quarter finals</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.CLQFs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.CLQFs, "", new { @class = "text-danger" })
+    </div>
+    <p>Champions League semi-finals</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.CLSFs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.CLSFs, "", new { @class = "text-danger" })
+    </div>
+    <p>First to concede 100</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Con100, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Con100, "", new { @class = "text-danger" })
+    </div>
+    <p>First to concede 25</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Con25, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Con25, "", new { @class = "text-danger" })
+    </div>
+    <p>First to concede 50</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Con50, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Con50, "", new { @class = "text-danger" })
+    </div>
+    <p>First to concede 5 in 1 game</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Con5in1, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Con5in1, "", new { @class = "text-danger" })
+    </div>
+    <p>First to concede 75</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Con75, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Con75, "", new { @class = "text-danger" })
+    </div>
+    <p>FA Cup results after final</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.FACFinalResults, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.FACFinalResults, "", new { @class = "text-danger" })
+    </div>
+    <p>FA Cup quarter finals</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.FACQFs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.FACQFs, "", new { @class = "text-danger" })
+    </div>
+    <p>FA Cup semi-finals</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.FACSFs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.FACSFs, "", new { @class = "text-danger" })
+    </div>
+    <p>League One final table</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.LOFinalTable, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.LOFinalTable, "", new { @class = "text-danger" })
+    </div>
+    <p>League One playoff winner</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.LOPlayoffs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.LOPlayoffs, "", new { @class = "text-danger" })
+    </div>
+    <p>First to lose 5 in a row</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Lose5inRow, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Lose5inRow, "", new { @class = "text-danger" })
+    </div>
+    <p>League Two final table results</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.LTFinalTable, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.LTFinalTable, "", new { @class = "text-danger" })
+    </div>
+    <p>League Two playoff winners</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.LTPlayoffs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.LTPlayoffs, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 1: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match1, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match1, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 2: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match2, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match2, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 3: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match3, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match3, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 4: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match4, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match4, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 5: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match5, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match5, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 6: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match6, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match6, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 7: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match7, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match7, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 8: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match8, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match8, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 9: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match9, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match9, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 10: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match10, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match10, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 11: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match11, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match11, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 12: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match12, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match12, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 13: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match13, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match13, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 14: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match14, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match14, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 15: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match15, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match15, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 16: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match16, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match16, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 17: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match17, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match17, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 18: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match18, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match18, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 19: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match19, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match19, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 20: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match20, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match20, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 21: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match21, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match21, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 22: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match22, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match22, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 23: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match23, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match23, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 24: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match24, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match24, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 25: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match25, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match25, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 26: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match26, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match26, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 27: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match27, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match27, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 28: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match28, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match28, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 29: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match29, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match29, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 30: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match30, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match30, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 31: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match31, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match31, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 32: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match32, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match32, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 33: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match33, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match33, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 34: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match34, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match34, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 35: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match35, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString(), Selected = (i==60) ? true : false }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match35, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 36: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match36, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match36, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 37: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match37, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match37, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 38: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match38, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match38, "", new { @class = "text-danger" })
+    </div>
+    <p>Match 39: </p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Match39, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Match39, "", new { @class = "text-danger" })
+    </div>
+    <p>National League Winners</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.NLFinalTable, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.NLFinalTable, "", new { @class = "text-danger" })
+    </div>
+    <p>National League Playoffs</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.NLPlayoffs, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.NLPlayoffs, "", new { @class = "text-danger" })
+    </div>
+    <p>Premier League final table results</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.PLFinalResults, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.PLFinalResults, "", new { @class = "text-danger" })
+    </div>
+    <p>First to score 100</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Score100, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Score100, "", new { @class = "text-danger" })
+    </div>
+    <p>First to score 25</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Score25, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Score25, "", new { @class = "text-danger" })
+    </div>
+    <p>First to score 50</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Score50, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Score50, "", new { @class = "text-danger" })
+    </div>
+    <p>First to score 5 in 1 goal</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Score5in1, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Score5in1, "", new { @class = "text-danger" })
+    </div>
+    <p>First to score 75</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Score75, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Score75, "", new { @class = "text-danger" })
+    </div>
+    <p>First team to have a player score a hattrick</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.TeamHattrick, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.TeamHattrick, "", new { @class = "text-danger" })
+    </div>
+    <p>First team to lose a manager</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.TeamLoseManager, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.TeamLoseManager, "", new { @class = "text-danger" })
+    </div>
+    <p>First team to have 2 red cards</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.TwoReds, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.TwoReds, "", new { @class = "text-danger" })
+    </div>
+    <p>First team to win 20</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Win20, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Win20, "", new { @class = "text-danger" })
+    </div>
+    <p>First team to win 5 in a row</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.UpdateInfo.Win5inRow, Enumerable.Range(1, 60).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "in which update?", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.UpdateInfo.Win5inRow, "", new { @class = "text-danger" })
+    </div>
+</form>
+
+
+
+
+<hr />
+ANSWERS
+<hr />
+
+<form action="/Admin/UpdateAnswers" method="post">
+    @Html.HiddenFor(m => m.Answers.Year)
+    <button type="submit" class="btn btn-primary">Update Answers</button>
+    <p>Who will win the Championship:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CTitle, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CTitle, "", new { @class = "text-danger" })
+    </div>
+    <p>Who will be the runner up:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CRunnerUp, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CRunnerUp, "", new { @class = "text-danger" })
+    </div>
+    <p>Who will be in the playoffs:</p>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CPlayoff1, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CPlayoff1, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CPlayoff2, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CPlayoff2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CPlayoff3, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CPlayoff3, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CPlayoff4, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CPlayoff4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <p>Who will win the playoffs:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CPlayoffWinner, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CPlayoffWinner, "", new { @class = "text-danger" })
+    </div>
+    <p>Who will be relegated:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CRelegation1, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CRelegation1, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CRelegation2, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CRelegation2, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CRelegation3, Html.GetEnumSelectList(typeof(ChampionshipTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CRelegation3, "", new { @class = "text-danger" })
+    </div>
+
+    <hr />
+    <h5>Champions League</h5>
+    <p>Name the 8 quarter finalists:</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF1, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF1, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF2, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF2, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF3, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF3, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF4, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF5, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF5, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF6, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF6, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF7, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF7, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLQF8, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLQF8, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p>Name the 4 semi-finalists:</p>
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLSF1, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLSF1, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLSF2, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLSF2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLSF3, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLSF3, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.CLSF4, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.CLSF4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <p>Who will win the Champions League:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CLWinner, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CLWinner, "", new { @class = "text-danger" })
+    </div>
+    <p>Who will be the runner up:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.CLRunnerUp, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.CLRunnerUp, "", new { @class = "text-danger" })
+    </div>
+    <p>Who will be the top scoring team in the Champions League:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.TopScoreTeam, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.TopScoreTeam, "", new { @class = "text-danger" })
+    </div>
+    <p>Who will be the top scoring player in the Champions League:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.TextBoxFor(m => m.Answers.TopScorePlayer, new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.TopScorePlayer, "", new { @class = "text-danger" })
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <p>Name the team to be top at Christmas:</p>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.Answers.Top, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.Top, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the team to be bottom at Christmas:</p>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.Answers.Bottom, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.Bottom, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>How many managers will have been sacked or left their club by Christmas:</p>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.Answers.ManagersOut, new SelectList(Enumerable.Range(0, 21)), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Answers.ManagersOut, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <p>What will be the difference in points between the top and bottom team at Christmas:</p>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.Answers.PointsDifference, new SelectList(Enumerable.Range(0, 61)), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Answers.PointsDifference, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>How many points clear will the top team be at Christmas:</p>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.Answers.PointsClear, new SelectList(Enumerable.Range(0, 61)), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Answers.PointsClear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h5>FA Cup</h5>
+    <p>Name the 8 quarter finalists:</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF1, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF1, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF2, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF2, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF3, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF3, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF4, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF5, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF5, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF6, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF6, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF7, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF7, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACQF8, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACQF8, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <p>Name the 4 semi-finalists:</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACSF1, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACSF1, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACSF2, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACSF2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACSF3, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACSF3, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                @Html.DropDownListFor(m => m.Answers.FACSF4, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                @Html.ValidationMessageFor(m => m.Answers.FACSF4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <p>Who will win the FA Cup:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.FACWinner, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.FACWinner, "", new { @class = "text-danger" })
+    </div>
+    <p>Who will be the runner up:</p>
+    <div class="form-group form-group-small-b-margin">
+        @Html.DropDownListFor(m => m.Answers.FACRunnerUp, Html.GetEnumSelectList(typeof(CupTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+        @Html.ValidationMessageFor(m => m.Answers.FACRunnerUp, "", new { @class = "text-danger" })
+    </div>
+
+    <hr />
+    <h5>Premier League Table</h5>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">1: </span>@Html.DropDownListFor(t => t.Answers.Place1, Html.GetEnumSelectList(typeof(TeamsEnum)), "First Place", new { @class = "form-control form-control-inline", @id = "p1" })
+                    @Html.ValidationMessageFor(t => t.Answers.Place1, "", new { @class = "text-danger " })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">2: </span>@Html.DropDownListFor(t => t.Answers.Place2, Html.GetEnumSelectList(typeof(TeamsEnum)),"Second Place", new { @class = "form-control form-control-inline", @id = "p2" })
+                    @Html.ValidationMessageFor(t => t.Answers.Place2, "", new { @class = "text-danger " })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">3: </span>@Html.DropDownListFor(t => t.Answers.Place3, Html.GetEnumSelectList(typeof(TeamsEnum)), "Third Place", new { @class = "form-control form-control-inline", @id = "p3" })
+                    @Html.ValidationMessageFor(t => t.Answers.Place3, "", new { @class = "text-danger " })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">4:</span>@Html.DropDownListFor(t => t.Answers.Place4, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fourth Place", new { @class = "form-control form-control-inline", @id = "p4" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">5:</span>@Html.DropDownListFor(t => t.Answers.Place5, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fifth Place", new { @class = "form-control form-control-inline", @id = "p5" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">6:</span>@Html.DropDownListFor(t => t.Answers.Place6, Html.GetEnumSelectList(typeof(TeamsEnum)), "Sixth Place", new { @class = "form-control form-control-inline", @id = "p6" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">7:</span>@Html.DropDownListFor(t => t.Answers.Place7, Html.GetEnumSelectList(typeof(TeamsEnum)), "Seventh Place", new { @class = "form-control form-control-inline", @id = "p7" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">8:</span>@Html.DropDownListFor(t => t.Answers.Place8, Html.GetEnumSelectList(typeof(TeamsEnum)), "Eighth Place", new { @class = "form-control form-control-inline", @id = "p8" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">9: </span>@Html.DropDownListFor(t => t.Answers.Place9, Html.GetEnumSelectList(typeof(TeamsEnum)), "Ninth Place", new { @class = "form-control form-control-inline", @id = "p9" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">10: </span>@Html.DropDownListFor(t => t.Answers.Place10, Html.GetEnumSelectList(typeof(TeamsEnum)), "Tenth Place", new { @class = "form-control form-control-inline", @id = "p10" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">11: </span>@Html.DropDownListFor(t => t.Answers.Place11, Html.GetEnumSelectList(typeof(TeamsEnum)), "Eleventh Place", new { @class = "form-control form-control-inline", @id = "p11" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">12: </span>@Html.DropDownListFor(t => t.Answers.Place12, Html.GetEnumSelectList(typeof(TeamsEnum)), "Twelfth Place", new { @class = "form-control form-control-inline", @id = "p12" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">13: </span>@Html.DropDownListFor(t => t.Answers.Place13, Html.GetEnumSelectList(typeof(TeamsEnum)), "Thirteenth Place", new { @class = "form-control form-control-inline", @id = "p13" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">14: </span>@Html.DropDownListFor(t => t.Answers.Place14, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fourteenth Place", new { @class = "form-control form-control-inline", @id = "p14" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">15: </span>@Html.DropDownListFor(t => t.Answers.Place15, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fifteenth Place", new { @class = "form-control form-control-inline", @id = "p15" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">16: </span>@Html.DropDownListFor(t => t.Answers.Place16, Html.GetEnumSelectList(typeof(TeamsEnum)), "Sixteenth Place", new { @class = "form-control form-control-inline", @id = "p16" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">17: </span>@Html.DropDownListFor(t => t.Answers.Place17, Html.GetEnumSelectList(typeof(TeamsEnum)), "Seventeenth Place", new { @class = "form-control form-control-inline", @id = "p17" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">18: </span>@Html.DropDownListFor(t => t.Answers.Place18, Html.GetEnumSelectList(typeof(TeamsEnum)), "Eighteenth Place", new { @class = "form-control form-control-inline", @id = "p18" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">19: </span>@Html.DropDownListFor(t => t.Answers.Place19, Html.GetEnumSelectList(typeof(TeamsEnum)), "Nineteenth Place", new { @class = "form-control form-control-inline", @id = "p19" })
+                </div>
+            </div>
+            <div class="form-group form-group-small-b-margin">
+                <div class="col-md-10">
+                    <span class="league-place-span">20: </span>@Html.DropDownListFor(t => t.Answers.Place20, Html.GetEnumSelectList(typeof(TeamsEnum)), "Twentieth Place", new { @class = "form-control form-control-inline", @id = "p20" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h5>Premier league firsts</h5>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <p>Name the first team to score 25 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.FirstScore25, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.FirstScore25, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to score 50 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.FirstScore50, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.FirstScore50, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to score 75 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.FirstScore75, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.FirstScore75, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to score 100 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.FirstScore100, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.FirstScore100, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to concede 25 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Con25, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Con25, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to concede 50 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Con50, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Con50, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to concede 75 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Con75, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Con75, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to concede 100 goals:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Con100, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Con100, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <p>Name the first team to have a player score a hattrick in a game:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.TeamHattrick, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.TeamHattrick, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to sack/change their manager:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.TeamLoseManager, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.TeamLoseManager, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to score 5 goals in 1 game:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Score5in1, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Score5in1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to concede 5 goals in 1 game:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Con5in1, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Con5in1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to win 5 games in a row:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Win5inRow, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Win5inRow, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to lose 5 games in a row:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Lose5inRow, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Lose5inRow, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to receive 2 red cards in the same game:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.TwoReds, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.TwoReds, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Name the first team to win 20 games:</p>
+                <div class="col-md-12">
+                    @Html.DropDownListFor(t => t.Answers.Win20, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                    @Html.ValidationMessageFor(m => m.Answers.Win20, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score1, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score2, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score3, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score4, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score5, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score6, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score7, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score8, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Watford</span> @Html.DropDownListFor(m => m.Answers.Score9, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score10, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">West Ham </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score11, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score12, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score13, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score14, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score15, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score16, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score17, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score18, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Watford</span> @Html.DropDownListFor(m => m.Answers.Score19, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score20, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">West Ham </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score21, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score22, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score23, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score24, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score25, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score26, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score27, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score28, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Watford</span> @Html.DropDownListFor(m => m.Answers.Score29, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score30, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">West Ham </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score31, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score32, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score33, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score34, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score35, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score36, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score37, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score38, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score39, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score40, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score41, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score42, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score43, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score44, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score45, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score46, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Watford</span> @Html.DropDownListFor(m => m.Answers.Score47, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score48, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">West Ham </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score49, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score50, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score51, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score52, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score53, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score54, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score55, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score56, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Watford</span> @Html.DropDownListFor(m => m.Answers.Score57, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score58, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">West Ham </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score59, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score60, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score61, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score62, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score63, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score64, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score65, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score66, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Watford</span> @Html.DropDownListFor(m => m.Answers.Score67, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score68, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">West Ham </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score69, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score70, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Manchester Utd</span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Liverpool</span> @Html.DropDownListFor(m => m.Answers.Score71, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score72, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Everton </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Tottenham</span> @Html.DropDownListFor(m => m.Answers.Score73, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score74, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Arsenal </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score75, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score76, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p><span class="team-name-span">Fulham</span> @Html.DropDownListFor(m => m.Answers.Score77, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.Answers.Score78, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) <span class="team-name-span-right">Chelsea </span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="container">
+        <p>Who will win League One:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LOTitle, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LOTitle, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be the runner up:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LORunnerUp, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LORunnerUp, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be in the playoffs:</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LOPlayoff1, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LOPlayoff1, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LOPlayoff2, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LOPlayoff2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LOPlayoff3, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LOPlayoff3, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LOPlayoff4, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LOPlayoff4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <p>Who will win the playoffs:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LOPlayoffWinner, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LOPlayoffWinner, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be relegated:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LORelegation1, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LORelegation1, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LORelegation2, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LORelegation2, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LORelegation3, Html.GetEnumSelectList(typeof(LeagueOneTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LORelegation3, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="container">
+        <p>Who will win League Two:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LTTitle, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LTTitle, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be the runner up:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LTRunnerUp, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LTRunnerUp, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be in the playoffs:</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LTPlayoff1, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LTPlayoff1, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LTPlayoff2, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LTPlayoff2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LTPlayoff3, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LTPlayoff3, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.Answers.LTPlayoff4, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.Answers.LTPlayoff4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <p>Who will win the playoffs:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LTPlayoffWinner, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LTPlayoffWinner, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be relegated:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LTRelegation1, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LTRelegation1, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LTRelegation2, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LTRelegation2, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.LTRelegation3, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.LTRelegation3, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="container">
+        <p>Who will win the National League:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.NLTitle, Html.GetEnumSelectList(typeof(NationalLeagueTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.NLTitle, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will win the playoffs:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.Answers.NLPlayoffWinner, Html.GetEnumSelectList(typeof(NationalLeagueTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.Answers.NLPlayoffWinner, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</form>

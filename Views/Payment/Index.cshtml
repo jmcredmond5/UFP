@@ -1,0 +1,33 @@
+﻿@model UFPCore.Models.Payment.IndexViewModel
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Payment</h2>
+<div class="row">
+    <partial name="_NavLinks">
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p>Click on the button below to pay the sign up fee and enter your predictions:</p>
+        <p>Note: Currently in testing mode so no payments will be charged (or work!), to get a successful test use any valid email syntax, card number 4242 4242 4242 4242 and a future date for the expiry date.</p>
+        <div class="col-md-6">
+            <form asp-controller="Payment" asp-action="Charge" method="post">
+                <script src="https://checkout.stripe.com/checkout.js"
+                        class="stripe-button"
+                        data-key="@Model.StripePublicKey"
+                        data-name="FergalTest"
+                        data-amount="1000"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-description="One-off entrance fee"
+                        data-zip-code="true"
+                        data-billing-address="true"
+                        data-currency="gbp">
+                </script>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "There was an error.", new { @class = "alert alert-danger" })
+            </form>
+        </div>
+    </div>
+</div>

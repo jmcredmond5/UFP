@@ -1,0 +1,195 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    color: #FFF;
+    background-color: #15477c;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+a:hover {
+    color: #f63143;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.container {
+    padding-left:3px;
+    padding-right:3px;
+}
+@media(min-width:300px){
+    .body-content{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+
+.navbar-inverse {
+    background-color: #FFF;
+}
+
+.navbar-inverse .navbar-collapse {
+    border-width: 0;
+}
+.navbar-inverse .navbar-nav > li > a {
+    background-color: #FFF;
+    color: #15477c;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: #FFF;
+    color: #f63143;
+}
+
+.navbar-inverse .navbar-toggle{
+    border-color: #FFF;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #FFF;
+}
+.navbar-inverse .navbar-toggle:hover {
+    background-color: #15477c;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #15477c;
+}
+.navbar-inverse .navbar-toggle:focus .icon-bar {
+    background-color: #15477c;
+}
+
+.navbar-inverse .navbar-toggle:hover .icon-bar {
+    background-color: #FFF;
+}
+
+
+.navbar-brand img {
+    position: relative;
+    top: -10px;
+    left: -10px;
+    height:50px;
+ }
+@media (min-width: 769px) {
+    .navbar-brand img {
+        top: -17px;
+    }
+}
+
+#brand-link {
+    top: -15px;
+    height: 50px;
+}
+
+.navbar-nav {
+    margin: 0 -15px;
+}
+
+.jumbotron {
+    background-color: #15477c;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 400px;
+    color: #15477c;
+}
+
+/* Prediction form styles*/
+.incomplete {
+    display: none;
+}
+
+.league-place-span {
+    width: 35px;
+    display: inline-block;
+}
+
+.error-input {
+    border-color: #f63143;
+    color: #f63143;
+}
+
+.team-name-span {
+    width: 65px;
+    display: inline-block;
+}
+@media (min-width: 370px){
+    .team-name-span {
+        width: 100px;
+    }
+}
+
+.team-name-span-right {
+    width: 80px;
+    display: inline-block;
+    text-align: right;
+}
+@media (min-width: 370px) {
+    .team-name-span-right {
+        width: 120px;
+    }
+}
+
+    .nav-pills > li.active > a {
+        background-color: #FFF;
+        color: #15477c;
+    }
+
+        .nav-pills > li.active > a:hover {
+            background-color: #FFF;
+            color: #15477c;
+        }
+
+        .nav-pills > li.active > a:visited {
+            background-color: #FFF;
+        }
+
+        .button-columns {
+            display: flex;
+            flex-direction:column;
+        }
+
+        .button-columns li {
+            width: 120px;
+            margin: auto;
+        }
+
+        .button-columns > li + li {
+            margin: auto;
+        }
+    a {
+        color: #FFF;
+    }
+
+    /* Inline form controls*/
+    .form-control-inline {
+        display: inline;
+    }
+
+    .form-group-small-b-margin {
+        margin-bottom: 2px;
+    }
+
+    .form-group-t-margin {
+        margin-top: 20px;
+    }
+
+    .margin-left {
+        margin-left: 10px;
+    }

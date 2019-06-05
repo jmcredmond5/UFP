@@ -1,0 +1,67 @@
+﻿@model UFPCore.Models.Predictions.ChristmasViewModel
+@{
+    ViewBag.Title = "Christmas Predictions";
+}
+
+<h2>Predictions</h2>
+<div class="row">
+    <partial name="_NavLinks"></partial>
+</div>
+
+
+
+@using (Html.BeginForm("Christmas", "Prediction", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Predict the answers to these questions:</h4>
+    <div class="container">
+        <div class="form-group">
+            <p>Name the team to be top at Christmas:</p>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ChristmasPredictions.Top, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                @Html.ValidationMessageFor(m => m.ChristmasPredictions.Top, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p>Name the team to be bottom at Christmas:</p>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ChristmasPredictions.Bottom, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                @Html.ValidationMessageFor(m => m.ChristmasPredictions.Bottom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p>How many managers will have been sacked or left their club by Christmas:</p>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ChristmasPredictions.ManagersOut, new SelectList(Enumerable.Range(0, 21)), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ChristmasPredictions.ManagersOut, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p>What will be the difference in points between the top and bottom team at Christmas:</p>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ChristmasPredictions.PointsDifference, new SelectList(Enumerable.Range(0, 61)), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ChristmasPredictions.PointsDifference, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p>How many points clear will the top team be at Christmas:</p>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ChristmasPredictions.PointsClear, new SelectList(Enumerable.Range(0, 61)), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ChristmasPredictions.PointsClear, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.ChristmasPredictions.Id)
+        @Html.HiddenFor(m => m.ChristmasPredictions.User)
+        @Html.HiddenFor(m => m.Completions.User)
+        @Html.HiddenFor(m => m.Completions.Id)
+        <p>When you have completed this section, tick this box: @Html.CheckBoxFor(m => m.ChristmasCompleted)</p>
+        <p>You can still come back and edit the predictions later.</p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-light">Save and continue</button>
+            </div>
+        </div>
+    </div>
+}
+
+

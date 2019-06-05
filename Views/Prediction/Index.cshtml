@@ -1,0 +1,400 @@
+﻿@model UFPCore.Models.Predictions.ScoresViewModel
+@using UFPCore.Models
+@{
+    ViewBag.Title = "Score Predictions";
+}
+
+<h2>Predictions</h2>
+<div class="row">
+    <partial name="_NavLinks">
+</div>
+
+
+
+@using (Html.BeginForm("Matches", "Prediction", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Predict the following match results:</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 padding-none padding-small-left">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match1H</div> 
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score1, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score2, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div> 
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match1A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match2H</div>
+                            <div class="col-4 select-score-span">
+                                @Html.DropDownListFor(m => m.scores.Score3, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score4, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+                            </div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match2A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match3H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score5, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score6, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match3A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match4H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score7, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score8, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match4A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match5H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score9, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score10, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match5A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match6H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score11, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score12, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match6A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match7H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score13, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score14, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match7A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match8H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score15, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score16, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match8A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match9H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score17, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score18, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match9A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match10H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score19, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score20, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match10A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match11H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score21, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score22, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match11A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match12H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score23, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score24, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match12A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match13H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score25, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score26, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match13A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match14H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score27, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score28, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match14A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match15H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score29, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score30, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match15A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match16H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score31, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score32, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match16A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match17H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score33, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score34, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match17A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match18H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score35, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score36, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match18A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match19H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score37, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score38, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match19A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match20H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score39, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score40, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match20A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 padding-none padding-small-left">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match21H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score41, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score42, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match21A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match22H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score43, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score44, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match22A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match23H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score45, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score46, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match23A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match24H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score47, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score48, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match24A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match25H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score49, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score50, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match25A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match26H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score51, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score52, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match26A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match27H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score53, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score54, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match27A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match28H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score55, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score56, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match28A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match29H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score57, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score58, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match29A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match30H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score59, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score60, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match30A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match31H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score61, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score62, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match31A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match32H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score63, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score64, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match32A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match33H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score65, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score66, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match33A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match34H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score67, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score68, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match34A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match35H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score69, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score70, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match35A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match36H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score71, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score72, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match36A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match37H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score73, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score74, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match37A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match38H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score75, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score76, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match38A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-4 team-name-span">@UFPCore.Prediction_constants.Matches.Match39H</div>
+                            <div class="col-4 select-score-span">@Html.DropDownListFor(m => m.scores.Score77, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() })) : @Html.DropDownListFor(m => m.scores.Score78, Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+                            <div class="col-4 text-align-right team-name-span">@UFPCore.Prediction_constants.Matches.Match39A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.scores.User)
+        @Html.HiddenFor(m => m.scores.Id)
+        @Html.HiddenFor(m => m.Completions.Id)
+        @Html.HiddenFor(m => m.Completions.User)
+        @Html.HiddenFor(m => m.Completions.ScoresCom)
+        @Html.HiddenFor(m => m.Completions.FirstsCom)
+        @Html.HiddenFor(m => m.Completions.FinalCom)
+        @Html.HiddenFor(m => m.Completions.EoSCom)
+        @Html.HiddenFor(m => m.Completions.ChampionsLgeCom)
+        @Html.HiddenFor(m => m.Completions.FACupCom)
+        @Html.HiddenFor(m => m.Completions.ChampionshipCom)
+        @Html.HiddenFor(m => m.Completions.LeagueOneCom)
+        @Html.HiddenFor(m => m.Completions.LeagueTwoCom)
+        @Html.HiddenFor(m => m.Completions.NationalLeagueCom)
+        <p>When you have completed this section, tick this box: @Html.CheckBoxFor(m => m.ScoresCompleted)</p>
+        <p>You can still come back and edit the predictions later.</p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-light">Save and continue</button>
+            </div>
+        </div>
+    </div>
+}

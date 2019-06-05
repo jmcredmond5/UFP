@@ -1,0 +1,27 @@
+﻿<!-- using Microsoft.AspNet.Identity -->
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>The Ultimate Football Predictor</h1>
+    <p class="lead">Unique. Fun. Popular.</p>
+    <p>Back for the 2019/20 season.</p>
+    @if (User.IsInRole("Admin") || User.IsInRole("User"))
+    {
+        @Html.ActionLink("Start Predicting", "Index", "Prediction", new { }, new { @class = "btn btn-light" });
+    }
+    @if (User.IsInRole("Admin") || User.IsInRole("PaidUser"))
+    {
+        @Html.ActionLink("Enter Dashboard", "Index", "Dashboard", new { }, new { @class = "btn btn-light" });
+    }
+</div>
+
+<!-- @{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> -->

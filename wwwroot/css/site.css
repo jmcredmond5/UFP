@@ -1,0 +1,251 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    color: #FFF;
+    background-color: #15477c;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+a:hover {
+    color: #f63143;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.padding-none {
+    padding: 0;
+}
+
+.padding-small-left {
+    padding-left: 8px;
+}
+.container {
+    padding-left:5px;
+    padding-right:5px;
+}
+@media(min-width:350px){
+    .body-content{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Google ReCaptcha css */
+#g-recaptcha-response {
+    display: block !important;
+    position: absolute;
+    margin: -78px 0 0 0 !important;
+    width: 302px !important;
+    height: 76px !important;
+    z-index: -999999;
+    opacity: 0;
+}
+.g-recaptcha {
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+.navbar-inverse {
+    background-color: #FFF;
+}
+
+.navbar-inverse .navbar-collapse {
+    border-width: 0;
+}
+.navbar-inverse .navbar-nav > li > a {
+    background-color: #FFF;
+    color: #15477c;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: #FFF;
+    color: #f63143;
+}
+
+.navbar-inverse .navbar-toggle{
+    border-color: #FFF;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #FFF;
+}
+.navbar-inverse .navbar-toggle:hover {
+    background-color: #15477c;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #15477c;
+}
+.navbar-inverse .navbar-toggle:focus .icon-bar {
+    background-color: #15477c;
+}
+
+.navbar-inverse .navbar-toggle:hover .icon-bar {
+    background-color: #FFF;
+}
+
+
+.navbar-brand img {
+    position: relative;
+    height:35px;
+ }
+
+.navbar-toggler {
+    font-size: 1rem;
+}
+
+@media (min-width: 560px) {
+    .navbar-brand img {
+        height: 50px;
+    }
+}
+
+#brand-link {
+    top: -15px;
+    height: 50px;
+}
+
+.navbar-nav {
+    margin: 0 -15px;
+}
+
+.jumbotron {
+    background-color: #15477c;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 400px;
+    color: #15477c;
+}
+
+select {
+    height:20px;
+    width: 32px;
+}
+
+@media(min-width: 350px){
+    select {
+        height: 22px;
+    }
+}
+
+/* Prediction form styles*/
+.incomplete {
+    display: none;
+}
+
+.league-place-span {
+    width: 35px;
+    display: inline-block;
+}
+
+.error-input {
+    border-color: #f63143;
+    color: #f63143;
+}
+
+.select-score-span {
+    padding:0;
+    text-align:center;
+}
+.team-name-span {
+    font-size: 75%;
+    padding:0;
+}
+@media (min-width: 480px){
+    .team-name-span {
+        font-size: 100%;
+    }
+}
+
+@media (min-width: 992px){
+    .team-name-span {
+        font-size: 75%;
+    }
+}
+
+@media (min-width: 1200px){
+    .team-name-span {
+        font-size: 100%;
+    }
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.team-name-span-right {
+    width: 80px;
+    display: inline-block;
+    text-align: right;
+}
+@media (min-width: 370px) {
+    .team-name-span-right {
+        width: 120px;
+    }
+}
+
+    .nav-pills > li.active > a {
+        background-color: #FFF;
+        color: #15477c;
+    }
+
+        .nav-pills > li.active > a:hover {
+            background-color: #FFF;
+            color: #15477c;
+        }
+
+        .nav-pills > li.active > a:visited {
+            background-color: #FFF;
+        }
+
+        .button-columns {
+            display: flex;
+            flex-direction:column;
+        }
+
+        .button-columns li {
+            width: 120px;
+            margin: auto;
+        }
+
+        .button-columns > li + li {
+            margin: auto;
+        }
+    a {
+        color: #FFF;
+    }
+
+    /* Inline form controls*/
+    .form-control-inline {
+        display: inline;
+    }
+
+    .form-group-small-b-margin {
+        margin-bottom: 2px;
+    }
+
+    .form-group-t-margin {
+        margin-top: 20px;
+    }
+
+    .margin-left {
+        margin-left: 10px;
+    }

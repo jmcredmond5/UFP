@@ -1,0 +1,76 @@
+<div class="col-xs-6 col-sm-12">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="nav-item @(ViewBag.Title=="Score Predictions"?"active":"")">
+                <a class="nav-link" href="@Url.Action("Index", "Prediction")"> 
+                    Matches <i class="@(Model.Completions.ScoresCom == true ? "fas fa-check" :"")"></i>
+                </a> 
+            </li>
+            <li role="presentation" class="nav-item @(ViewBag.Title=="Firsts Predictions"?"active":"")">
+                <a class="nav-link" href="@Url.Action("Firsts", "Prediction")"> 
+                    Firsts <i class="@(Model.Completions.FirstsCom == true ? "fas fa-check" :"")"></i>
+                </a> 
+            </li>
+            <li role="presentation" class="nav-item @(ViewBag.Title=="Table Predictions"?"active":"")">
+                <a class="nav-link" href="@Url.Action("Final", "Prediction")">
+                    Final Table <i class="@(Model.Completions.FinalCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item @(ViewBag.Title=="Christmas Predictions"?"active":"")">
+                <a class="nav-link" href="@Url.Action("Christmas", "Prediction")">
+                    Christmas <i class="@(Model.Completions.EoSCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item @(ViewBag.Title=="Champions League Predictions"?"active":"")">
+                <a class="nav-link" href="@Url.Action("ChampionsLge", "Prediction")">
+                    Champions League <i class="@(Model.Completions.ChampionsLgeCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-6 col-sm-12">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="nav-item">
+                <a class="nav-link @(ViewBag.Title=="FA Cup Predictions"?"active":"")" href="@Url.Action("FACup", "Prediction")">
+                    FA Cup <i class="@(Model.Completions.FACupCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a class="nav-link @(ViewBag.Title=="Championship Predictions"?"active":"")" href="@Url.Action("Championship", "Prediction")">
+                    Championship <i class="@(Model.Completions.ChampionshipCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a class="nav-link @(ViewBag.Title=="League One Predictions"?"active":"")" href="@Url.Action("LeagueOne", "Prediction")">
+                    League One <i class="@(Model.Completions.LeagueOneCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a class="nav-link @(ViewBag.Title=="League Two Predictions"?"active":"")" href="@Url.Action("LeagueTwo", "Prediction")">
+                    League Two <i class="@(Model.Completions.LeagueTwoCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a class="nav-link @(ViewBag.Title=="National League Predictions"?"active":"")" href="@Url.Action("NationalLeague", "Prediction")">
+                    National League <i class="@(Model.Completions.NationalLeagueCom == true ? "fas fa-check" :"")"></i>
+                </a>
+            </li>
+            @if ((User.IsInRole("Admin") || User.IsInRole("User"))
+                    && Model.Completions.ScoresCom == true
+                    && Model.Completions.FirstsCom == true
+                    && Model.Completions.FinalCom == true
+                    && Model.Completions.EoSCom == true
+                    && Model.Completions.ChampionsLgeCom == true
+                    && Model.Completions.FACupCom == true
+                    && Model.Completions.ChampionshipCom == true
+                    && Model.Completions.LeagueOneCom == true
+                    && Model.Completions.LeagueTwoCom == true
+                    && Model.Completions.NationalLeagueCom == true)
+            {
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link @(ViewBag.Title=="Payment"?"active":"")" href="@Url.Action("Index", "Payment")">
+                        Pay to Enter Predictions 
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>

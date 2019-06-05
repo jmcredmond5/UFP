@@ -1,0 +1,206 @@
+﻿@model UFPCore.Models.Predictions.FinalViewModel
+@using UFPCore.Models
+@{
+    ViewBag.Title = "Table Predictions";
+}
+
+<h2>Predictions</h2>
+<div class="row">
+    <partial name="_NavLinks"></partial>
+</div>
+
+
+@using (Html.BeginForm("Final", "Prediction", FormMethod.Post, new { @class = "form-horizontal", @id = "tableform" }))
+{
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+
+    <h4>Predict the final Premier League table:</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">1: </span>@Html.DropDownListFor(t => t.table.Place1, Html.GetEnumSelectList(typeof(TeamsEnum)), "First Place", new { @class = "form-control form-control-inline", @id = "p1" })
+                        @Html.ValidationMessageFor(t => t.table.Place1, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">2: </span>@Html.DropDownListFor(t => t.table.Place2, Html.GetEnumSelectList(typeof(TeamsEnum)), "Second Place", new { @class = "form-control form-control-inline", @id = "p2" })
+                        @Html.ValidationMessageFor(t => t.table.Place2, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">3: </span>@Html.DropDownListFor(t => t.table.Place3, Html.GetEnumSelectList(typeof(TeamsEnum)), "Third Place", new { @class = "form-control form-control-inline", @id = "p3" })
+                        @Html.ValidationMessageFor(t => t.table.Place3, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">4:</span>@Html.DropDownListFor(t => t.table.Place4, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fourth Place", new { @class = "form-control form-control-inline", @id = "p4" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">5:</span>@Html.DropDownListFor(t => t.table.Place5, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fifth Place", new { @class = "form-control form-control-inline", @id = "p5" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">6:</span>@Html.DropDownListFor(t => t.table.Place6, Html.GetEnumSelectList(typeof(TeamsEnum)), "Sixth Place", new { @class = "form-control form-control-inline", @id = "p6" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">7:</span>@Html.DropDownListFor(t => t.table.Place7, Html.GetEnumSelectList(typeof(TeamsEnum)), "Seventh Place", new { @class = "form-control form-control-inline", @id = "p7" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">8:</span>@Html.DropDownListFor(t => t.table.Place8, Html.GetEnumSelectList(typeof(TeamsEnum)), "Eighth Place", new { @class = "form-control form-control-inline", @id = "p8" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">9: </span>@Html.DropDownListFor(t => t.table.Place9, Html.GetEnumSelectList(typeof(TeamsEnum)), "Ninth Place", new { @class = "form-control form-control-inline", @id = "p9" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">10: </span>@Html.DropDownListFor(t => t.table.Place10, Html.GetEnumSelectList(typeof(TeamsEnum)), "Tenth Place", new { @class = "form-control form-control-inline", @id = "p10" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">11: </span>@Html.DropDownListFor(t => t.table.Place11, Html.GetEnumSelectList(typeof(TeamsEnum)), "Eleventh Place", new { @class = "form-control form-control-inline", @id = "p11" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">12: </span>@Html.DropDownListFor(t => t.table.Place12, Html.GetEnumSelectList(typeof(TeamsEnum)), "Twelfth Place", new { @class = "form-control form-control-inline", @id = "p12" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">13: </span>@Html.DropDownListFor(t => t.table.Place13, Html.GetEnumSelectList(typeof(TeamsEnum)), "Thirteenth Place", new { @class = "form-control form-control-inline", @id = "p13" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">14: </span>@Html.DropDownListFor(t => t.table.Place14, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fourteenth Place", new { @class = "form-control form-control-inline", @id = "p14" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">15: </span>@Html.DropDownListFor(t => t.table.Place15, Html.GetEnumSelectList(typeof(TeamsEnum)), "Fifteenth Place", new { @class = "form-control form-control-inline", @id = "p15" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">16: </span>@Html.DropDownListFor(t => t.table.Place16, Html.GetEnumSelectList(typeof(TeamsEnum)), "Sixteenth Place", new { @class = "form-control form-control-inline", @id = "p16" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">17: </span>@Html.DropDownListFor(t => t.table.Place17, Html.GetEnumSelectList(typeof(TeamsEnum)), "Seventeenth Place", new { @class = "form-control form-control-inline", @id = "p17" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">18: </span>@Html.DropDownListFor(t => t.table.Place18, Html.GetEnumSelectList(typeof(TeamsEnum)), "Eighteenth Place", new { @class = "form-control form-control-inline", @id = "p18" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">19: </span>@Html.DropDownListFor(t => t.table.Place19, Html.GetEnumSelectList(typeof(TeamsEnum)), "Nineteenth Place", new { @class = "form-control form-control-inline", @id = "p19" })
+                    </div>
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    <div class="col-md-10">
+                        <span class="league-place-span">20: </span>@Html.DropDownListFor(t => t.table.Place20, Html.GetEnumSelectList(typeof(TeamsEnum)), "Twentieth Place", new { @class = "form-control form-control-inline", @id = "p20" })
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.table.User)
+                @Html.HiddenFor(m => m.table.Id)
+                @Html.HiddenFor(m => m.Completions.User)
+                @Html.HiddenFor(m => m.Completions.Id)
+                @Html.HiddenFor(m => m.Completions.ScoresCom)
+                @Html.HiddenFor(m => m.Completions.FirstsCom)
+                @Html.HiddenFor(m => m.Completions.FinalCom)
+                @Html.HiddenFor(m => m.Completions.EoSCom)
+                @Html.HiddenFor(m => m.Completions.ChampionsLgeCom)
+                @Html.HiddenFor(m => m.Completions.FACupCom)
+                @Html.HiddenFor(m => m.Completions.ChampionshipCom)
+                @Html.HiddenFor(m => m.Completions.LeagueOneCom)
+                @Html.HiddenFor(m => m.Completions.LeagueTwoCom)
+                @Html.HiddenFor(m => m.Completions.NationalLeagueCom)
+                <p>When you have completed this section, tick this box: @Html.CheckBoxFor(m => m.TableCompleted)</p>
+                <p>You can still come back and edit the predictions later.</p>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-light">Save and continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script>
+        $("#SubmitButton").on("click", function (event) {
+            const tableVals = new Set([parseInt($("#p1")[0].value), parseInt($("#p2")[0].value),
+            parseInt($("#p3")[0].value), parseInt($("#p4")[0].value),
+            parseInt($("#p5")[0].value), parseInt($("#p6")[0].value),
+            parseInt($("#p7")[0].value), parseInt($("#p8")[0].value),
+            parseInt($("#p9")[0].value), parseInt($("#p10")[0].value),
+            parseInt($("#p11")[0].value), parseInt($("#p12")[0].value),
+            parseInt($("#p13")[0].value), parseInt($("#p14")[0].value),
+            parseInt($("#p15")[0].value), parseInt($("#p16")[0].value),
+            parseInt($("#p17")[0].value), parseInt($("#p18")[0].value),
+            parseInt($("#p19")[0].value), parseInt($("#p20")[0].value)]);
+
+            const tableValsWithRepeats = [parseInt($("#p1")[0].value), parseInt($("#p2")[0].value),
+                parseInt($("#p3")[0].value), parseInt($("#p4")[0].value),
+                parseInt($("#p5")[0].value), parseInt($("#p6")[0].value),
+                parseInt($("#p7")[0].value), parseInt($("#p8")[0].value),
+                parseInt($("#p9")[0].value), parseInt($("#p10")[0].value),
+                parseInt($("#p11")[0].value), parseInt($("#p12")[0].value),
+                parseInt($("#p13")[0].value), parseInt($("#p14")[0].value),
+                parseInt($("#p15")[0].value), parseInt($("#p16")[0].value),
+                parseInt($("#p17")[0].value), parseInt($("#p18")[0].value),
+                parseInt($("#p19")[0].value), parseInt($("#p20")[0].value)];
+
+            let duplicates = [];
+
+            tableValsWithRepeats.forEach(function (element, index) {
+                if ((tableValsWithRepeats.indexOf(element, index + 1) > -1) || (tableValsWithRepeats.indexOf(element) < index) ) {
+                    if (duplicates.indexOf(index) === -1) {
+                        duplicates.push(index);
+                    }
+                }
+            });
+
+            if (tableVals.has(NaN)) {
+                event.preventDefault();
+                alert("You must complete the table!");
+            } else if (tableVals.size < 20) {
+                event.preventDefault();
+                duplicates.forEach(function (element) {
+                    $("#p" + (element + 1)).addClass("error-input");
+                });
+                alert("Each team can only appear in the table once!");
+            }
+        });
+
+        $(".form-control").on("click", function () {
+            $(this).removeClass("error-input");
+        });
+        
+    </script>
+}

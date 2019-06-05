@@ -1,0 +1,113 @@
+﻿@model UFPCore.Models.Predictions.ChampionsLgeViewModel
+@using UFPCore.Models
+@{
+    ViewBag.Title = "Champions League Predictions";
+}
+
+<h2>Predictions</h2>
+<div class="row">
+    <partial name="_NavLinks"></partial>
+</div>
+
+@using (Html.BeginForm("ChampionsLge", "Prediction", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Predict the answers to these questions about the Champions League:</h4>
+    <div class="container">
+        <p>Name the 8 quarter finalists:</p>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF1, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF1, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF3, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF3, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF5, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF5, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF7, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF7, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF2, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF2, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF4, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF4, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF6, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF6, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.QF8, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.QF8, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <p>Name the 4 semi-finalists:</p>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.SF1, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.SF1, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.SF3, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.SF3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.SF2, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.SF2, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.ChampionsLge.SF4, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.ChampionsLge.SF4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <p>Who will win the Champions League:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.ChampionsLge.Winner, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.ChampionsLge.Winner, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be the runner up:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.ChampionsLge.RunnerUp, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.ChampionsLge.RunnerUp, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be the top scoring team in the Champions League:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.DropDownListFor(m => m.ChampionsLge.TopScoreTeam, Html.GetEnumSelectList(typeof(ChampionsTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.ChampionsLge.TopScoreTeam, "", new { @class = "text-danger" })
+        </div>
+        <p>Who will be the top scoring player in the Champions League:</p>
+        <div class="form-group form-group-small-b-margin">
+            @Html.TextBoxFor(m => m.ChampionsLge.TopScorePlayer, new { @class = "form-control margin-left" })
+            @Html.ValidationMessageFor(m => m.ChampionsLge.TopScorePlayer, "", new { @class = "text-danger" })
+        </div>
+        @Html.HiddenFor(m => m.ChampionsLge.Id)
+        @Html.HiddenFor(m => m.ChampionsLge.User)
+        @Html.HiddenFor(m => m.Completions.User)
+        @Html.HiddenFor(m => m.Completions.Id)
+        <p>When you have completed this section, tick this box: @Html.CheckBoxFor(m => m.ChampLgeCompleted)</p>
+        <p>You can still come back and edit the predictions later.</p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-light">Save and continue</button>
+            </div>
+        </div>
+    </div>
+}
+
+

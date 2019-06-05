@@ -1,0 +1,612 @@
+﻿@model UFPCore.Models.DashboardViewModel
+@{
+    ViewBag.Title = "Prediction Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<h4>Last update</h4>
+@if (Model.UpdateInfo.ChFinalTable == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>Championship winners: @Model.Answers.CTitle  </p>
+    <p>Championship runner up: @Model.Answers.CRunnerUp </p>
+    <p>Championship playoff teams: @Model.Answers.CPlayoff1, @Model.Answers.CPlayoff2, @Model.Answers.CPlayoff3, @Model.Answers.CPlayoff4 </p>
+    <p>Championship relegated teams: @Model.Answers.CRelegation1, @Model.Answers.CRelegation2, @Model.Answers.CRelegation3 </p>
+}
+@if (Model.UpdateInfo.ChPlayoffs == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>Championship playoff winner: @Model.Answers.CPlayoffWinner </p>
+}
+@if (Model.UpdateInfo.LOFinalTable == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>League One winners: @Model.Answers.LOTitle </p>
+    <p>League One runner up: @Model.Answers.LORunnerUp </p>
+    <p>League One playoff teams: @Model.Answers.LOPlayoff1, @Model.Answers.LOPlayoff2, @Model.Answers.LOPlayoff3, @Model.Answers.LOPlayoff4 </p>
+    <p>League One relegated teams: @Model.Answers.LORelegation1, @Model.Answers.LORelegation2, @Model.Answers.LORelegation3 </p>
+}
+@if (Model.UpdateInfo.LOPlayoffs == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>League One playoff winner: @Model.Answers.LOPlayoffWinner </p>
+}
+@if (Model.UpdateInfo.LTFinalTable == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>League Two winners: @Model.Answers.LTTitle </p>
+    <p>League Two runner up: @Model.Answers.LTRunnerUp </p>
+    <p>League Two playoff teams: @Model.Answers.LTPlayoff1, @Model.Answers.LTPlayoff2, @Model.Answers.LTPlayoff3, @Model.Answers.LTPlayoff4 </p>
+    <p>League Two relegated teams: @Model.Answers.LTRelegation1, @Model.Answers.LTRelegation1, @Model.Answers.LTRelegation3 </p>
+}
+@if (Model.UpdateInfo.LTPlayoffs == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>League Two playoff winner: @Model.Answers.LTPlayoffWinner </p>
+}
+@if (Model.UpdateInfo.NLFinalTable == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>National League winners: @Model.Answers.NLTitle </p>
+}
+@if (Model.UpdateInfo.NLPlayoffs == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>National League playoff winners: @Model.Answers.NLPlayoffWinner </p>
+}
+@if (Model.UpdateInfo.FACQFs == Model.UpdateInfo.CurrentUpdate)
+{
+<p>FA cup quarter finalists: @Model.Answers.FACQF1, @Model.Answers.FACQF2, @Model.Answers.FACQF3, @Model.Answers.FACQF4, @Model.Answers.FACQF5, @Model.Answers.FACQF6, @Model.Answers.FACQF7, @Model.Answers.FACQF8 </p>
+}
+@if (Model.UpdateInfo.FACSFs == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>FA cup semi-finalists: @Model.Answers.FACSF1, @Model.Answers.FACSF2, @Model.Answers.FACSF3, @Model.Answers.FACSF4  </p>
+}
+@if (Model.UpdateInfo.FACFinalResults == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>FA cup winners: @Model.Answers.FACWinner </p>
+    <p>FA cup runner up: @Model.Answers.FACRunnerUp</p>
+}
+@if (Model.UpdateInfo.CLQFs == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Champions League quarter finalists: @Model.Answers.CLQF1, @Model.Answers.CLQF2, @Model.Answers.CLQF3, @Model.Answers.CLQF4, @Model.Answers.CLQF5, @Model.Answers.CLQF6, @Model.Answers.CLQF7, @Model.Answers.CLQF8 </p>
+}
+@if (Model.UpdateInfo.CLSFs == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Champions League semi-finalists: @Model.Answers.CLSF1, @Model.Answers.CLSF2, @Model.Answers.CLSF3, @Model.Answers.CLSF4</p>
+}
+@if (Model.UpdateInfo.CLFinalResults == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>Champions League winners: @Model.Answers.CLWinner </p>
+    <p>Champions League runner up: @Model.Answers.CLRunnerUp </p>
+    <p>Champions League top scoring team: @Model.Answers.TopScoreTeam </p>
+    <p>Champions League top scoring player: @Model.Answers.TopScorePlayer </p>
+}
+@if (Model.UpdateInfo.Christmas == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>Team top of the league at Christmas: @Model.Answers.Top </p>
+    <p>Team bottom of the league at Christmas: @Model.Answers.Bottom </p>
+    <p>Number of managers to leave their club by Christmas: @Model.Answers.ManagersOut </p>
+    <p>Points difference between top and bottom at Christmas: @Model.Answers.PointsDifference </p>
+    <p>Points clear of top team at Christmas: @Model.Answers.PointsClear </p>
+}
+@if (Model.UpdateInfo.PLFinalResults == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>Final Premier League table</p>
+}
+@if (Model.UpdateInfo.Score25 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to score 25 goals: @Model.Answers.FirstScore25 </p>
+}
+@if (Model.UpdateInfo.Score50 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to score 50 goals: @Model.Answers.FirstScore50 </p>
+}
+@if (Model.UpdateInfo.Score75 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to score 75 goals: @Model.Answers.FirstScore75 </p>
+}
+@if (Model.UpdateInfo.Score100 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to score 100 goals: @Model.Answers.FirstScore100 </p>
+}
+@if (Model.UpdateInfo.Con25 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to concede 25 goals: @Model.Answers.Con25 </p>
+}
+@if (Model.UpdateInfo.Con50 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to concede 50 goals: @Model.Answers.Con50 </p>
+}
+@if (Model.UpdateInfo.Con75 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to concede 75 goals: @Model.Answers.Con75 </p>
+}
+@if (Model.UpdateInfo.Con100 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to concede 100 goals: @Model.Answers.Con100 </p>
+}
+@if (Model.UpdateInfo.TeamHattrick == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to have a player score a hattrick: @Model.Answers.TeamHattrick </p>
+}
+@if (Model.UpdateInfo.TeamLoseManager == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to lose their manager: @Model.Answers.TeamLoseManager </p>
+}
+@if (Model.UpdateInfo.Score5in1 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to score 5 goals in 1 game: @Model.Answers.Score5in1 </p>
+}
+@if (Model.UpdateInfo.Con5in1 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to concede 5 goals in 1 game: @Model.Answers.Con5in1 </p>
+}
+@if (Model.UpdateInfo.Win5inRow == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to win 5 games in a row: @Model.Answers.Win5inRow </p>
+}
+@if (Model.UpdateInfo.Lose5inRow == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to lose 5 games in a row: @Model.Answers.Lose5inRow </p>
+}
+@if (Model.UpdateInfo.TwoReds == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to receive 2 red cards in the same game: @Model.Answers.TwoReds </p>
+}
+@if (Model.UpdateInfo.Win20 == Model.UpdateInfo.CurrentUpdate)
+{
+    <p>First team to win 20 games: @Model.Answers.Win20 </p>
+}
+@if (Model.UpdateInfo.Match1 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match1H @Model.Answers.Score1 : @Model.Answers.Score2 @UFPCore.Prediction_constants.Matches.Match1A</p>
+}
+@if (Model.UpdateInfo.Match2 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match2H @Model.Answers.Score3 : @Model.Answers.Score4 @UFPCore.Prediction_constants.Matches.Match2A</p>
+}
+@if (Model.UpdateInfo.Match3 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match3H @Model.Answers.Score5 : @Model.Answers.Score6 @UFPCore.Prediction_constants.Matches.Match3A</p>
+}
+@if (Model.UpdateInfo.Match4 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match4H @Model.Answers.Score7 : @Model.Answers.Score8 @UFPCore.Prediction_constants.Matches.Match4A</p>
+}
+@if (Model.UpdateInfo.Match5 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match5H @Model.Answers.Score9 : @Model.Answers.Score10 @UFPCore.Prediction_constants.Matches.Match5A</p>
+}
+@if (Model.UpdateInfo.Match6 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match6H @Model.Answers.Score11 : @Model.Answers.Score12 @UFPCore.Prediction_constants.Matches.Match6A</p>
+}
+@if (Model.UpdateInfo.Match7 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match7H @Model.Answers.Score13 : @Model.Answers.Score14 @UFPCore.Prediction_constants.Matches.Match7A</p>
+}
+@if (Model.UpdateInfo.Match8 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match8H @Model.Answers.Score15 : @Model.Answers.Score16 @UFPCore.Prediction_constants.Matches.Match8A</p>
+}
+@if (Model.UpdateInfo.Match9 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match9H @Model.Answers.Score17 : @Model.Answers.Score18 @UFPCore.Prediction_constants.Matches.Match9A</p>
+}
+@if (Model.UpdateInfo.Match10 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match10H @Model.Answers.Score19 : @Model.Answers.Score20 @UFPCore.Prediction_constants.Matches.Match10A</p>
+}
+@if (Model.UpdateInfo.Match11 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match11H @Model.Answers.Score21 : @Model.Answers.Score22 @UFPCore.Prediction_constants.Matches.Match11A</p>
+}
+@if (Model.UpdateInfo.Match12 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match12H @Model.Answers.Score23 : @Model.Answers.Score24 @UFPCore.Prediction_constants.Matches.Match12A</p>
+}
+@if (Model.UpdateInfo.Match13 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match13H @Model.Answers.Score25 : @Model.Answers.Score26 @UFPCore.Prediction_constants.Matches.Match13A</p>
+}
+@if (Model.UpdateInfo.Match14 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match14H @Model.Answers.Score27 : @Model.Answers.Score28 @UFPCore.Prediction_constants.Matches.Match14A</p>
+}
+@if (Model.UpdateInfo.Match15 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match15H @Model.Answers.Score29 : @Model.Answers.Score30 @UFPCore.Prediction_constants.Matches.Match15A</p>
+}
+@if (Model.UpdateInfo.Match16 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match16H @Model.Answers.Score31 : @Model.Answers.Score32 @UFPCore.Prediction_constants.Matches.Match16A</p>
+}
+@if (Model.UpdateInfo.Match17 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match17H @Model.Answers.Score33 : @Model.Answers.Score34 @UFPCore.Prediction_constants.Matches.Match18A</p>
+}
+@if (Model.UpdateInfo.Match18 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match18H @Model.Answers.Score35 : @Model.Answers.Score36 @UFPCore.Prediction_constants.Matches.Match18A</p>
+}
+@if (Model.UpdateInfo.Match19 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match19H @Model.Answers.Score37 : @Model.Answers.Score38 @UFPCore.Prediction_constants.Matches.Match19A</p>
+}
+@if (Model.UpdateInfo.Match20 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match20H @Model.Answers.Score39 : @Model.Answers.Score40 @UFPCore.Prediction_constants.Matches.Match20A</p>
+}
+@if (Model.UpdateInfo.Match21 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match21H @Model.Answers.Score41 : @Model.Answers.Score42 @UFPCore.Prediction_constants.Matches.Match21A</p>
+}
+@if (Model.UpdateInfo.Match22 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match22H @Model.Answers.Score43 : @Model.Answers.Score44 @UFPCore.Prediction_constants.Matches.Match22A</p>
+}
+@if (Model.UpdateInfo.Match23 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match23H @Model.Answers.Score45 : @Model.Answers.Score46 @UFPCore.Prediction_constants.Matches.Match23A</p>
+}
+@if (Model.UpdateInfo.Match24 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match24H @Model.Answers.Score47 : @Model.Answers.Score48 @UFPCore.Prediction_constants.Matches.Match24A</p>
+}
+@if (Model.UpdateInfo.Match25 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match25H @Model.Answers.Score49 : @Model.Answers.Score50 @UFPCore.Prediction_constants.Matches.Match25A</p>
+}
+@if (Model.UpdateInfo.Match26 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match26H @Model.Answers.Score51 : @Model.Answers.Score52 @UFPCore.Prediction_constants.Matches.Match26A</p>
+}
+@if (Model.UpdateInfo.Match27 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match27H @Model.Answers.Score53 : @Model.Answers.Score54 @UFPCore.Prediction_constants.Matches.Match27A</p>
+}
+@if (Model.UpdateInfo.Match28 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match28H @Model.Answers.Score55 : @Model.Answers.Score56 @UFPCore.Prediction_constants.Matches.Match28A</p>
+}
+@if (Model.UpdateInfo.Match29 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match29H @Model.Answers.Score57 : @Model.Answers.Score58 @UFPCore.Prediction_constants.Matches.Match29A</p>
+}
+@if (Model.UpdateInfo.Match30 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match30H @Model.Answers.Score59 : @Model.Answers.Score60 @UFPCore.Prediction_constants.Matches.Match30A</p>
+}
+@if (Model.UpdateInfo.Match31 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match31H @Model.Answers.Score61 : @Model.Answers.Score62 @UFPCore.Prediction_constants.Matches.Match31A</p>
+}
+@if (Model.UpdateInfo.Match32 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match32H @Model.Answers.Score63 : @Model.Answers.Score64 @UFPCore.Prediction_constants.Matches.Match32A</p>
+}
+@if (Model.UpdateInfo.Match33 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match33H @Model.Answers.Score65 : @Model.Answers.Score66 @UFPCore.Prediction_constants.Matches.Match33A</p>
+}
+@if (Model.UpdateInfo.Match34 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match34H @Model.Answers.Score67 : @Model.Answers.Score68 @UFPCore.Prediction_constants.Matches.Match34A</p>
+}
+@if (Model.UpdateInfo.Match35 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match35H @Model.Answers.Score69 : @Model.Answers.Score70 @UFPCore.Prediction_constants.Matches.Match35A</p>
+}
+@if (Model.UpdateInfo.Match36 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match36H @Model.Answers.Score71 : @Model.Answers.Score72 @UFPCore.Prediction_constants.Matches.Match36A</p>
+}
+@if (Model.UpdateInfo.Match37 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match37H @Model.Answers.Score73 : @Model.Answers.Score74 @UFPCore.Prediction_constants.Matches.Match37A</p>
+}
+@if (Model.UpdateInfo.Match38 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match38H @Model.Answers.Score75 : @Model.Answers.Score76 @UFPCore.Prediction_constants.Matches.Match38A</p>
+}
+@if (Model.UpdateInfo.Match39 == Model.UpdateInfo.CurrentUpdate)
+{
+<p>Match result: @UFPCore.Prediction_constants.Matches.Match39H @Model.Answers.Score77 : @Model.Answers.Score78 @UFPCore.Prediction_constants.Matches.Match39A</p>
+}
+
+<h4>Next update</h4>
+@if (Model.UpdateInfo.ChFinalTable == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Championship winners </p>
+    <p>Championship runner up</p>
+    <p>Championship playoff teams</p>
+    <p>Championship relegated teams</p>
+}
+@if (Model.UpdateInfo.ChPlayoffs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Championship playoff winner</p>
+}
+@if (Model.UpdateInfo.LOFinalTable == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>League One winners </p>
+    <p>League One runner up</p>
+    <p>League One playoff teams</p>
+    <p>League One relegated teams</p>
+}
+@if (Model.UpdateInfo.LOPlayoffs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>League One playoff winner</p>
+}
+@if (Model.UpdateInfo.LTFinalTable == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>League Two winners </p>
+    <p>League Two runner up</p>
+    <p>League Two playoff teams</p>
+    <p>League Two relegated teams</p>
+}
+@if (Model.UpdateInfo.LTPlayoffs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>League Two playoff winner</p>
+}
+@if (Model.UpdateInfo.NLFinalTable == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>National League winners</p>
+}
+@if (Model.UpdateInfo.NLPlayoffs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>National League playoff winners</p>
+}
+@if (Model.UpdateInfo.FACQFs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>FA cup quarter finalists</p>
+}
+@if (Model.UpdateInfo.FACSFs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>FA cup semi-finalists</p>
+}
+@if (Model.UpdateInfo.FACFinalResults == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>FA cup winners</p>
+    <p>FA cup runner up</p>
+}
+@if (Model.UpdateInfo.CLQFs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Champions League quarter finalists</p>
+}
+@if (Model.UpdateInfo.CLSFs == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Champions League semi-finalists</p>
+}
+@if (Model.UpdateInfo.CLFinalResults == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Champions League winners</p>
+    <p>Champions League runner up</p>
+    <p>Champions League top scoring team</p>
+    <p>Champions League top scoring player</p>
+}
+@if (Model.UpdateInfo.Christmas == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Team top of the league at Christams</p>
+    <p>Team bottom of the league at Christams</p>
+    <p>Number of managers to leave their club by Christams</p>
+    <p>Points difference between top and bottom at Christams</p>
+    <p>Points clear of top team at Christams</p>
+}
+@if (Model.UpdateInfo.PLFinalResults == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Final Premier League table</p>
+}
+@if (Model.UpdateInfo.Score25 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to score 25 goals</p>
+}
+@if (Model.UpdateInfo.Score50 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to score 50 goals</p>
+}
+@if (Model.UpdateInfo.Score75 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to score 75 goals</p>
+}
+@if (Model.UpdateInfo.Score100 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to score 100 goals</p>
+}
+@if (Model.UpdateInfo.Con25 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to concede 25 goals</p>
+}
+@if (Model.UpdateInfo.Con50 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to concede 50 goals</p>
+}
+@if (Model.UpdateInfo.Con75 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to concede 75 goals</p>
+}
+@if (Model.UpdateInfo.Con100 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to concede 100 goals</p>
+}
+@if (Model.UpdateInfo.TeamHattrick == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to have a player score a hattrick</p>
+}
+@if (Model.UpdateInfo.TeamLoseManager == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to lose their manager</p>
+}
+@if (Model.UpdateInfo.Score5in1 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to score 5 goals in 1 game</p>
+}
+@if (Model.UpdateInfo.Con5in1 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to concede 5 goals in 1 game</p>
+}
+@if (Model.UpdateInfo.Win5inRow == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to win 5 games in a row</p>
+}
+@if (Model.UpdateInfo.Lose5inRow == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to lose 5 games in a row</p>
+}
+@if (Model.UpdateInfo.TwoReds == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to receive 2 red cards in the same game</p>
+}
+@if (Model.UpdateInfo.Win20 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>First team to win 20 games</p>
+}
+@if (Model.UpdateInfo.Match1 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match1H vs @UFPCore.Prediction_constants.Matches.Match1A</p>
+}
+@if (Model.UpdateInfo.Match2 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match2H vs @UFPCore.Prediction_constants.Matches.Match2A</p>
+}
+@if (Model.UpdateInfo.Match3 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match3H vs @UFPCore.Prediction_constants.Matches.Match3A</p>
+}
+@if (Model.UpdateInfo.Match4 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match4H vs @UFPCore.Prediction_constants.Matches.Match4A</p>
+}
+@if (Model.UpdateInfo.Match5 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match5H vs @UFPCore.Prediction_constants.Matches.Match5A</p>
+}
+@if (Model.UpdateInfo.Match6 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match6H vs @UFPCore.Prediction_constants.Matches.Match6A</p>
+}
+@if (Model.UpdateInfo.Match7 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match7H vs @UFPCore.Prediction_constants.Matches.Match7A</p>
+}
+@if (Model.UpdateInfo.Match8 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match8H vs @UFPCore.Prediction_constants.Matches.Match8A</p>
+}
+@if (Model.UpdateInfo.Match9 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match9H vs @UFPCore.Prediction_constants.Matches.Match9A</p>
+}
+@if (Model.UpdateInfo.Match10 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match10H vs @UFPCore.Prediction_constants.Matches.Match10A</p>
+}
+@if (Model.UpdateInfo.Match11 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match11H vs @UFPCore.Prediction_constants.Matches.Match11A</p>
+}
+@if (Model.UpdateInfo.Match12 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match12H vs @UFPCore.Prediction_constants.Matches.Match12A</p>
+}
+@if (Model.UpdateInfo.Match13 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match13H vs @UFPCore.Prediction_constants.Matches.Match13A</p>
+}
+@if (Model.UpdateInfo.Match14 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match14H vs @UFPCore.Prediction_constants.Matches.Match14A</p>
+}
+@if (Model.UpdateInfo.Match15 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match15H vs @UFPCore.Prediction_constants.Matches.Match15A</p>
+}
+@if (Model.UpdateInfo.Match16 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match16H vs @UFPCore.Prediction_constants.Matches.Match16A</p>
+}
+@if (Model.UpdateInfo.Match17 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match17H vs @UFPCore.Prediction_constants.Matches.Match17A</p>
+}
+@if (Model.UpdateInfo.Match18 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match18H vs @UFPCore.Prediction_constants.Matches.Match18A</p>
+}
+@if (Model.UpdateInfo.Match19 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match19H vs @UFPCore.Prediction_constants.Matches.Match19A</p>
+}
+@if (Model.UpdateInfo.Match20 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match20H vs @UFPCore.Prediction_constants.Matches.Match20A</p>
+}
+@if (Model.UpdateInfo.Match21 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match21H vs @UFPCore.Prediction_constants.Matches.Match21A</p>
+}
+@if (Model.UpdateInfo.Match22 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match22H vs @UFPCore.Prediction_constants.Matches.Match22A</p>
+}
+@if (Model.UpdateInfo.Match23 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match23H vs @UFPCore.Prediction_constants.Matches.Match23A</p>
+}
+@if (Model.UpdateInfo.Match24 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match24H vs @UFPCore.Prediction_constants.Matches.Match24A</p>
+}
+@if (Model.UpdateInfo.Match25 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match25H vs @UFPCore.Prediction_constants.Matches.Match25A</p>
+}
+@if (Model.UpdateInfo.Match26 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match26H vs @UFPCore.Prediction_constants.Matches.Match26A</p>
+}
+@if (Model.UpdateInfo.Match27 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match27H vs @UFPCore.Prediction_constants.Matches.Match27A</p>
+}
+@if (Model.UpdateInfo.Match28 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match28H vs @UFPCore.Prediction_constants.Matches.Match28A</p>
+}
+@if (Model.UpdateInfo.Match29 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match29H vs @UFPCore.Prediction_constants.Matches.Match29A</p>
+}
+@if (Model.UpdateInfo.Match30 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match30H vs @UFPCore.Prediction_constants.Matches.Match30A</p>
+}
+@if (Model.UpdateInfo.Match31 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match31H vs @UFPCore.Prediction_constants.Matches.Match31A</p>
+}
+@if (Model.UpdateInfo.Match32 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match32H vs @UFPCore.Prediction_constants.Matches.Match32A</p>
+}
+@if (Model.UpdateInfo.Match33 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match33H vs @UFPCore.Prediction_constants.Matches.Match33A</p>
+}
+@if (Model.UpdateInfo.Match34 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match34H vs @UFPCore.Prediction_constants.Matches.Match34A</p>
+}
+@if (Model.UpdateInfo.Match35 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match35H vs @UFPCore.Prediction_constants.Matches.Match35A</p>
+}
+@if (Model.UpdateInfo.Match36 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match36H vs @UFPCore.Prediction_constants.Matches.Match36A</p>
+}
+@if (Model.UpdateInfo.Match37 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match37H vs @UFPCore.Prediction_constants.Matches.Match37A</p>
+}
+@if (Model.UpdateInfo.Match38 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match38H vs @UFPCore.Prediction_constants.Matches.Match38A</p>
+}
+@if (Model.UpdateInfo.Match39 == Model.UpdateInfo.CurrentUpdate + 1)
+{
+    <p>Match result: @UFPCore.Prediction_constants.Matches.Match39H vs @UFPCore.Prediction_constants.Matches.Match39A</p>
+}

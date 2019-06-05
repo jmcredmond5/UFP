@@ -1,0 +1,151 @@
+﻿@model UFPCore.Models.Predictions.FirstsViewModel
+@using UFPCore.Models
+@{
+    ViewBag.Title = "Firsts Predictions";
+}
+
+<h2>Predictions</h2>
+<div class="row">
+    <partial name="_NavLinks"></partial>
+</div>
+
+
+@using (Html.BeginForm("Firsts", "Prediction", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Predict which team will do the following 'firsts':</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <p>Name the first team to score 25 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Score25, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Score25, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to score 50 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Score50, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Score50, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to score 75 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Score75, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Score75, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to score 100 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Score100, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Score100, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to concede 25 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Con25, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Con25, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to concede 50 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Con50, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Con50, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to concede 75 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Con75, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Con75, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to concede 100 goals:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Con100, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Con100, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <p>Name the first team to have a player score a hattrick in a game:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.TeamHattrick, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.TeamHattrick, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to sack/change their manager:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.TeamLoseManager, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.TeamLoseManager, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to score 5 goals in 1 game:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Score5in1, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Score5in1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to concede 5 goals in 1 game:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Con5in1, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Con5in1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to win 5 games in a row:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Win5inRow, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Win5inRow, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to lose 5 games in a row:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Lose5inRow, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Lose5inRow, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to receive 2 red cards in the same game:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.TwoReds, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.TwoReds, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Name the first team to win 20 games:</p>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(t => t.FirstPredictions.Win20, Html.GetEnumSelectList(typeof(TeamsEnum)), "select a team", new { @class = "form-control form-control-inline" })
+                        @Html.ValidationMessageFor(m => m.FirstPredictions.Win20, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.FirstPredictions.Id)
+        @Html.HiddenFor(m => m.FirstPredictions.User)
+        @Html.HiddenFor(m => m.Completions.User)
+        @Html.HiddenFor(m => m.Completions.Id)
+        <p>When you have completed this section, tick this box: @Html.CheckBoxFor(m => m.FirstsCompleted)</p>
+        <p>You can still come back and edit the predictions later.</p>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-light">Save and continue</button>
+            </div>
+        </div>
+    </div>
+}
+
+

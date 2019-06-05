@@ -1,0 +1,88 @@
+﻿@using UFPCore.Models
+@model UFPCore.Models.Predictions.LeagueTwoViewModel
+@{
+    ViewBag.Title = "League Two Predictions";
+}
+
+<h2>Predictions</h2>
+<div class="row">
+    <partial name="_NavLinks"></partial>
+</div>
+
+@using (Html.BeginForm("LeagueTwo", "Prediction", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Predict the answers to these questions about League Two:</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Who will win League Two:</p>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.LeagueTwo.Title, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.LeagueTwo.Title, "", new { @class = "text-danger" })
+                </div>
+                <p>Who will be the runner up:</p>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.LeagueTwo.RunnerUp, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.LeagueTwo.RunnerUp, "", new { @class = "text-danger" })
+                </div>
+                <p>Who will be in the playoffs:</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-small-b-margin">
+                            @Html.DropDownListFor(m => m.LeagueTwo.Playoff1, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                            @Html.ValidationMessageFor(m => m.LeagueTwo.Playoff1, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group form-group-small-b-margin">
+                            @Html.DropDownListFor(m => m.LeagueTwo.Playoff3, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                            @Html.ValidationMessageFor(m => m.LeagueTwo.Playoff3, "", new { @class = "text-danger" })
+                        </div>                        
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-small-b-margin">
+                            @Html.DropDownListFor(m => m.LeagueTwo.Playoff2, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                            @Html.ValidationMessageFor(m => m.LeagueTwo.Playoff2, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group form-group-small-b-margin">
+                            @Html.DropDownListFor(m => m.LeagueTwo.Playoff4, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                            @Html.ValidationMessageFor(m => m.LeagueTwo.Playoff4, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <p>Who will win the playoffs:</p>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.LeagueTwo.PlayoffWinner, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.LeagueTwo.PlayoffWinner, "", new { @class = "text-danger" })
+                </div>
+                <p>Who will be relegated:</p>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.LeagueTwo.Relegation1, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.LeagueTwo.Relegation1, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.LeagueTwo.Relegation2, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.LeagueTwo.Relegation2, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group form-group-small-b-margin">
+                    @Html.DropDownListFor(m => m.LeagueTwo.Relegation3, Html.GetEnumSelectList(typeof(LeagueTwoTeamsEnum)), "select a team", new { @class = "form-control margin-left" })
+                    @Html.ValidationMessageFor(m => m.LeagueTwo.Relegation3, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.HiddenFor(m => m.LeagueTwo.Id)
+                @Html.HiddenFor(m => m.LeagueTwo.User)
+                @Html.HiddenFor(m => m.Completions.User)
+                @Html.HiddenFor(m => m.Completions.Id)
+                <p>When you have completed this section, tick this box: @Html.CheckBoxFor(m => m.LeagueTwoCompleted)</p>
+                <p>You can still come back and edit the predictions later.</p>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-light">Save and continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+}
+
+
